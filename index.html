@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body ng-controller="main">
+    <div>{{bbb.userName}}</div>
+    <div>{{constValue.msg}}</div>
+    <div>{{constValue.array}}</div>
+</body>
+<script src="./js/lib/angular.js"></script>
+<script src="./js/common/controller.js"></script>
+<script src="./js/common/service.js"></script>
+
+</html>
+<script>
+    // 单例   
+    angular.module('app',['service','controller'])
+            .config(['constValue','valueProvider',function(constValue,valueProvider){
+                // Provider  高阶服务  一个返回服务的服务
+                console.log('config',constValue,valueProvider.$get())
+
+            }])
+            .run(['factory','service','$interval','provider',function(factory,service,$interval,provider){
+                factory()
+                factory.log();
+                console.log('run')
+
+                console.log(service.name);
+
+                // var timer = $interval(function(){
+                //     service.happayBirthday()
+                //     console.log(service.age)
+                //     if( service.age > 100){
+                //         service.goDie()
+                //         $interval.cancel(timer)
+                //     }
+                // },100)
+                
+                console.log(provider)
+
+            }])
+
+            //1 如果你想多次使用一个对象或者一个函数 那么由于控制器之间无法直接通信导致需要多次实现 也就是 你需要将这个方法复制过去 这就违背了DRY原则 not repeat your self
+            //2 所以我们将需要多次 复用的函数或者对象提取出来 放在5大服务里面
+
+
+
+</script>
